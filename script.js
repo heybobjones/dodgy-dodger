@@ -104,10 +104,10 @@ function createObstacle() {
 
 function getTitle(type) {
     switch(type) {
-        case 'onlyfans': return 'Only Fans Creator';
-        case 'marketer': return 'Network Marketer';
-        case 'fitness': return 'Fitness Bro';
-        case 'crypto': return 'Crypto Bro';
+        case 'onlyfans': return 'Only Fans Creator Carla';
+        case 'marketer': return 'Network Marketer Natalie';
+        case 'fitness': return 'Fitness Bro Benny';
+        case 'crypto': return 'Crypto Bro Brian';
     }
 }
 
