@@ -350,3 +350,4 @@ document.addEventListener('touchmove', handleTouchMove, false);
 loadImages(() => {
     startGameButton.style.display = 'block';
 });
+
