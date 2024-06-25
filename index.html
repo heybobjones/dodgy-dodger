@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Social Media Dodger</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<div id="flashOverlay"></div>
+	<div id="gameOver">
+		<div id="gameOverHeader">Game Over</div>
+		<div id="gameOverSubheader">You got spammed to death! 💀</div></br>
+		<div> Connect with me on <a href="https://fb.com/bobjones" target="_blank">Facebook</a></div>
+	</div>
+	<canvas id="gameCanvas" width="800" height="400"></canvas>
+	<div id="controls">
+		<input type="file" id="profilePicUpload" accept="image/*">
+		<button id="startGame">Start Game</button>
+	</div>
+	<audio id="collisionSound" src="collision.mp3"></audio>
+	<audio id="gameOverSound" src="gameover.mp3"></audio>
+	<audio id="backgroundMusic" src="background.mp3" loop></audio>
+	<script src="script.js"></script>
+</body>
+</html>
