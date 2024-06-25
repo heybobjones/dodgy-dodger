@@ -20,10 +20,10 @@ const player = {
 
 let obstacles = [];
 let score = 0;
-let lives = 10;
+let lives = 7;
 let gameLoop;
-let difficultyFactor = 1; // Initialize the difficulty factor
-let obstacleCreationRate = 0.04; // Initial obstacle creation rate
+let difficultyFactor = 2; // Initialize the difficulty factor
+let obstacleCreationRate = 0.05; // Initial obstacle creation rate
 let gameStarted = false;
 let keysPressed = {};
 let hitCounts = {
