@@ -78,7 +78,7 @@ function drawPlayer() {
     ctx.clip();
 
     if (player.image) {
-        const scaleFactor = 2.5; // Increase this factor to make the image larger
+        const scaleFactor = 1.5; // Increase this factor to make the image larger
         ctx.drawImage(player.image, player.x - player.radius * scaleFactor, player.y - player.radius * scaleFactor, player.radius * 2 * scaleFactor, player.radius * 2 * scaleFactor);
     } else {
         ctx.fillStyle = '#0F0';
@@ -88,13 +88,14 @@ function drawPlayer() {
     ctx.restore();
 }
 
+
 function createObstacle() {
     const types = ['onlyfans', 'marketer', 'fitness', 'crypto'];
     const type = types[Math.floor(Math.random() * types.length)];
     const obstacle = {
         x: canvas.width,
         y: Math.random() * (canvas.height - 40),
-        radius: 25,
+        radius: 50,
         speed: 2 + Math.random() * 3,
         type: type,
         title: getTitle(type)
