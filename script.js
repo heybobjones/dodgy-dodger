@@ -207,19 +207,19 @@ function moveObstacles() {
 
         switch(obstacle.type) {
             case 'crypto':
-                obstacle.y += Math.sin(obstacle.x * 0.4) * 2;
+                obstacle.y += Math.sin(obstacle.x * 0.2) * 4; // Increase amplitude and frequency
                 break;
             case 'onlyfans':
                 const dx = player.x - obstacle.x;
                 const dy = player.y - obstacle.y;
-                const dist = Math.sqrt(dx*dx + dy*dy);
-                obstacle.x += dx / dist * 0.5;
-                obstacle.y += dy / dist * 0.5;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                obstacle.x += dx / dist * 1.0; // Increase attraction speed
+                obstacle.y += dy / dist * 1.0;
                 break;
             case 'marketer':
-                if (Math.random() < 0.001 && obstacle.radius > 15) {
-                    obstacle.radius *= 0.9;
-                    obstacles.push({...obstacle, y: obstacle.y + 40});
+                if (Math.random() < 0.005 && obstacle.radius > 15) { // Increase probability of multiplication
+                    obstacle.radius *= 0.7;
+                    obstacles.push({...obstacle, y: obstacle.y + Math.random() * 100 - 50}); // Wider area
                 }
                 break;
             case 'fitness':
@@ -229,6 +229,7 @@ function moveObstacles() {
     });
     obstacles = obstacles.filter(obstacle => obstacle.x + obstacle.radius > 0);
 }
+
 
 function movePlayer() {
     if (keysPressed['ArrowLeft']) {
