@@ -71,21 +71,20 @@ function loadImages(callback) {
 }
 
 function drawPlayer() {
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
-    ctx.closePath();
-    ctx.clip();
+	ctx.save();
+	ctx.beginPath();
+	ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
+	ctx.closePath();
+	ctx.clip();
 
-    if (player.image) {
-        const scaleFactor = 1.5; // Increase this factor to make the image larger
-        ctx.drawImage(player.image, player.x - player.radius * scaleFactor, player.y - player.radius * scaleFactor, player.radius * 2 * scaleFactor, player.radius * 2 * scaleFactor);
-    } else {
-        ctx.fillStyle = '#0F0';
-        ctx.fill();
-    }
+	if (player.image) {
+		ctx.drawImage(player.image, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2);
+	} else {
+		ctx.fillStyle = '#0F0';
+		ctx.fill();
+	}
 
-    ctx.restore();
+	ctx.restore();
 }
 
 
