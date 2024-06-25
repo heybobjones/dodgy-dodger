@@ -78,7 +78,8 @@ function drawPlayer() {
     ctx.clip();
 
     if (player.image) {
-        ctx.drawImage(player.image, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2);
+        const scaleFactor = 1.5; // Increase this factor to make the image larger
+        ctx.drawImage(player.image, player.x - player.radius * scaleFactor, player.y - player.radius * scaleFactor, player.radius * 2 * scaleFactor, player.radius * 2 * scaleFactor);
     } else {
         ctx.fillStyle = '#0F0';
         ctx.fill();
