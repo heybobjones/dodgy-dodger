@@ -112,6 +112,39 @@ function getTitle(type) {
     }
 }
 
+function updateDifficulty() {
+    difficultyFactor += 0.001; // Adjust this value to control how quickly the difficulty increases
+}
+
+// Call updateDifficulty periodically
+function update() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (!isColliding) {
+        movePlayer();
+        moveObstacles();
+        checkCollision();
+    }
+
+    drawPlayer();
+    obstacles.forEach(drawObstacle);
+    drawScore();
+
+    if (Math.random() < 0.02) {
+        createObstacle();
+    }
+
+    score++;
+
+    if (lives <= 0) {
+        gameOver();
+    } else {
+        gameLoop = requestAnimationFrame(update);
+        updateDifficulty(); // Increase difficulty over time
+    }
+}
+
+
 function drawObstacle(obstacle) {
     const img = obstacleImages[obstacle.type];
     if (img.complete && img.naturalHeight !== 0) {
