@@ -4,6 +4,8 @@ const gameOverScreen = document.getElementById('gameOver');
 const profilePicUpload = document.getElementById('profilePicUpload');
 const startGameButton = document.getElementById('startGame');
 const flashOverlay = document.getElementById('flashOverlay');
+const controls = document.getElementById('controls');
+
 
 const collisionSound = document.getElementById('collisionSound');
 const gameOverSound = document.getElementById('gameOverSound');
@@ -297,6 +299,7 @@ startGameButton.addEventListener('click', () => {
         hitCounts = {onlyfans: 0, marketer: 0, fitness: 0, crypto: 0};
         gameOverScreen.style.display = 'none';
         startGameButton.style.display = 'none';
+        controls.style.display = 'none'; // Hide the controls
         player.x = 50;
         player.y = 200;
         player.velocityX = 0;
