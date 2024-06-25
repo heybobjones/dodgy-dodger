@@ -40,10 +40,10 @@ const obstacleImages = {
 
 // Load obstacle images (replace with actual image URLs)
 const imageUrls = {
-    onlyfans: '/dodgy-dodger/blob/main/images/OFCreator.png', // Replace with actual image URL for OF creator
-    marketer: '/dodgy-dodger/blob/main/images/NetworkMarketer.png', // Replace with actual image URL for Network Marketer
-    fitness: '/dodgy-dodger/blob/main/images/FitnessBro.png', // Replace with actual image URL for Fitness Influencer
-    crypto: '/dodgy-dodger/blob/main/images/CryptoBro.png' // Replace with actual image URL for Crypto Bro
+    onlyfans: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/OFCreator.png', // Replace with actual image URL for OF creator
+    marketer: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/NetworkMarketer.png', // Replace with actual image URL for Network Marketer
+    fitness: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/FitnessBro.png', // Replace with actual image URL for Fitness Influencer
+    crypto: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/CryptoBro.png' // Replace with actual image URL for Crypto Bro
 };
 
 // Load all images and start the game once all images are loaded
