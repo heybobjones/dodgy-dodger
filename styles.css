@@ -13,40 +13,34 @@ body {
 #gameContainer {
     position: relative;
     width: 100%;
-    max-width: 1400px;
-    height: 0;
-    padding-bottom: 50%; /* Aspect ratio of 2:1 */
+    max-width: 1600px;
 }
 
 #gameCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     border: 4px solid #0F0;
+    width: 100%;
+    height: auto;
 }
 
 #controls {
     position: absolute;
-    top: 10%; /* Adjust as needed */
+    top: 20px; /* Adjust as needed */
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
     background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
-    padding: 10px; /* Adjust padding for better mobile experience */
+    padding: 20px;
     border-radius: 10px;
-    width: 90%; /* Adjust width for mobile */
 }
 
 #controls h1 {
-    font-size: 20px; /* Adjust font size for mobile */
+    font-size: 24px;
     color: #FFA500;
     margin-bottom: 10px;
 }
 
 #controls p {
-    font-size: 16px; /* Adjust font size for mobile */
+    font-size: 18px;
     color: #FFF;
     margin-bottom: 20px;
 }
@@ -115,19 +109,4 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
-}
-
-/* Media query for larger screens */
-@media (min-width: 768px) {
-    #controls {
-        width: 50%; /* Adjust width for desktop */
-    }
-
-    #controls h1 {
-        font-size: 24px; /* Adjust font size for desktop */
-    }
-
-    #controls p {
-        font-size: 18px; /* Adjust font size for desktop */
-    }
 }
