@@ -23,6 +23,7 @@ let score = 0;
 let lives = 10;
 let gameLoop;
 let difficultyFactor = 1; // Initialize the difficulty factor
+let obstacleCreationRate = 0.02; // Initial obstacle creation rate
 let gameStarted = false;
 let keysPressed = {};
 let hitCounts = {
@@ -103,6 +104,7 @@ function createObstacle() {
     obstacles.push(obstacle);
 }
 
+
 function getTitle(type) {
     switch(type) {
         case 'onlyfans': return 'Only Fans Creator Carla';
@@ -131,6 +133,39 @@ function update() {
     drawScore();
 
     if (Math.random() < 0.02) {
+        createObstacle();
+    }
+
+    score++;
+
+    if (lives <= 0) {
+        gameOver();
+    } else {
+        gameLoop = requestAnimationFrame(update);
+        updateDifficulty(); // Increase difficulty over time
+    }
+}
+
+function updateDifficulty() {
+    difficultyFactor += 0.001; // Adjust this value to control how quickly the difficulty increases
+    obstacleCreationRate += 0.0001; // Adjust this value to control how quickly the obstacle creation rate increases
+}
+
+// Call updateDifficulty periodically
+function update() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (!isColliding) {
+        movePlayer();
+        moveObstacles();
+        checkCollision();
+    }
+
+    drawPlayer();
+    obstacles.forEach(drawObstacle);
+    drawScore();
+
+    if (Math.random() < obstacleCreationRate) { // Increased obstacle creation rate
         createObstacle();
     }
 
