@@ -12,6 +12,9 @@ body {
 
 #gameCanvas {
 	border: 4px solid #0F0;
+	width: 100%;  /* Make the canvas take up full width */
+    max-width: 1600px;  /* Limit the maximum width */
+    height: auto;  /* Maintain aspect ratio */
 }
 
 #gameOver {
