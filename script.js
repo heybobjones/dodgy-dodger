@@ -14,7 +14,7 @@ const player = {
     image: null,
     velocityX: 0,
     velocityY: 0,
-    acceleration: 2,
+    acceleration: 0.75,
     friction: 0.85
 };
 

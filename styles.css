@@ -10,35 +10,49 @@ body {
 	color: #0F0;
 }
 
+#gameContainer {
+    position: relative;
+    width: 100%;
+    max-width: 1600px;
+    height: 0;
+    padding-bottom: 50%; /* Aspect ratio of 2:1 */
+}
+
 #gameCanvas {
-	border: 4px solid #0F0;
-	width: 100%;  /* Make the canvas take up full width */
-    max-width: 1600px;  /* Limit the maximum width */
-    height: auto;  /* Maintain aspect ratio */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 4px solid #0F0;
 }
 
 #gameOver {
-	position: absolute;
-	font-size: 24px;
-	text-align: center;
-	display: none;
-	background-color: rgba(0, 0, 0, 0.8);
-	padding: 20px;
-	border-radius: 10px;
-	animation: pulse 2s infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    text-align: center;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 10; /* Ensure game over screen is on top */
+    animation: pulse 2s infinite;
 }
 
 #gameOverHeader {
-	font-size: 48px;
-	margin-bottom: 10px;
-	color: #FF0000;
-	text-shadow: 0 0 10px #FF0000;
+    font-size: 48px;
+    margin-bottom: 10px;
+    color: #FF0000;
+    text-shadow: 0 0 10px #FF0000;
 }
 
 #gameOverSubheader {
-	font-size: 24px;
-	color: #FFA500;
-	text-shadow: 0 0 5px #FFA500;
+    font-size: 24px;
+    color: #FFA500;
+    text-shadow: 0 0 5px #FFA500;
 }
 
 #controls {
@@ -66,19 +80,19 @@ body {
 }
 
 @keyframes pulse {
-	0% { transform: scale(1); }
-	50% { transform: scale(1.05); }
-	100% { transform: scale(1); }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 
 #flashOverlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(255, 0, 0, 0.3);
-	display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 0, 0, 0.3);
+    display: none;
 }
 
 footer {
