@@ -205,7 +205,7 @@ function moveObstacles() {
     obstacles.forEach(obstacle => {
         obstacle.x -= obstacle.speed;
 
-        switch(obstacle.type) {
+        switch (obstacle.type) {
             case 'crypto':
                 obstacle.y += Math.sin(obstacle.x * 0.2) * 4; // Increase amplitude and frequency
                 break;
@@ -219,7 +219,7 @@ function moveObstacles() {
             case 'marketer':
                 if (Math.random() < 0.005 && obstacle.radius > 15) { // Increase probability of multiplication
                     obstacle.radius *= 0.7;
-                    obstacles.push({...obstacle, y: obstacle.y + Math.random() * 100 - 50}); // Wider area
+                    obstacles.push({ ...obstacle, y: obstacle.y + Math.random() * 100 - 50 }); // Wider area
                 }
                 break;
             case 'fitness':
@@ -227,8 +227,41 @@ function moveObstacles() {
                 break;
         }
     });
+
+    // Check for overlaps and adjust positions
+    for (let i = 0; i < obstacles.length; i++) {
+        for (let j = i + 1; j < obstacles.length; j++) {
+            if (checkOverlap(obstacles[i], obstacles[j])) {
+                resolveOverlap(obstacles[i], obstacles[j]);
+            }
+        }
+    }
+
     obstacles = obstacles.filter(obstacle => obstacle.x + obstacle.radius > 0);
 }
+
+function checkOverlap(obstacle1, obstacle2) {
+    const dx = obstacle1.x - obstacle2.x;
+    const dy = obstacle1.y - obstacle2.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    return distance < obstacle1.radius + obstacle2.radius;
+}
+
+function resolveOverlap(obstacle1, obstacle2) {
+    const dx = obstacle1.x - obstacle2.x;
+    const dy = obstacle1.y - obstacle2.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const overlap = obstacle1.radius + obstacle2.radius - distance;
+
+    const adjustX = (dx / distance) * overlap / 2;
+    const adjustY = (dy / distance) * overlap / 2;
+
+    obstacle1.x += adjustX;
+    obstacle1.y += adjustY;
+    obstacle2.x -= adjustX;
+    obstacle2.y -= adjustY;
+}
+
 
 
 function movePlayer() {
