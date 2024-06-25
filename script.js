@@ -30,6 +30,8 @@ let obstacles = [];
 let score = 0;
 let lives = 10;
 let gameLoop;
+let touchStartX = 0;
+let touchStartY = 0;
 let gameStarted = false;
 let keysPressed = {};
 let hitCounts = {
@@ -308,6 +310,49 @@ startGameButton.addEventListener('click', () => {
         update();
     }
 });
+
+function handleTouchStart(evt) {
+    const firstTouch = evt.touches[0];
+    touchStartX = firstTouch.clientX;
+    touchStartY = firstTouch.clientY;
+}
+
+function handleTouchMove(evt) {
+    if (!touchStartX || !touchStartY) {
+        return;
+    }
+
+    const touchMoveX = evt.touches[0].clientX;
+    const touchMoveY = evt.touches[0].clientY;
+
+    const diffX = touchStartX - touchMoveX;
+    const diffY = touchStartY - touchMoveY;
+
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) {
+            // Swipe left
+            player.x -= player.speed;
+        } else {
+            // Swipe right
+            player.x += player.speed;
+        }
+    } else {
+        if (diffY > 0) {
+            // Swipe up
+            player.y -= player.speed;
+        } else {
+            // Swipe down
+            player.y += player.speed;
+        }
+    }
+
+    // Reset values
+    touchStartX = touchMoveX;
+    touchStartY = touchMoveY;
+}
+
+document.addEventListener('touchstart', handleTouchStart, false);
+document.addEventListener('touchmove', handleTouchMove, false);
 
 function playSound(sound) {
     if (sound) {
