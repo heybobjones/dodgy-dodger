@@ -15,6 +15,7 @@ body {
 	width: 100%;  /* Make the canvas take up full width */
     max-width: 1600px;  /* Limit the maximum width */
     height: auto;  /* Maintain aspect ratio */
+	margin-top: 20px;
 }
 
 #gameOver {
