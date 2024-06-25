@@ -4,6 +4,7 @@ const gameOverScreen = document.getElementById('gameOver');
 const profilePicUpload = document.getElementById('profilePicUpload');
 const startGameButton = document.getElementById('startGame');
 const flashOverlay = document.getElementById('flashOverlay');
+const collisionSound = document.getElementById('collisionSound');
 
 const player = {
     x: 50,
