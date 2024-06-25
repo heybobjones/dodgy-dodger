@@ -207,7 +207,7 @@ function moveObstacles() {
 
         switch(obstacle.type) {
             case 'crypto':
-                obstacle.y += Math.sin(obstacle.x * 0.1) * 2;
+                obstacle.y += Math.sin(obstacle.x * 0.4) * 2;
                 break;
             case 'onlyfans':
                 const dx = player.x - obstacle.x;
@@ -218,8 +218,8 @@ function moveObstacles() {
                 break;
             case 'marketer':
                 if (Math.random() < 0.001 && obstacle.radius > 15) {
-                    obstacle.radius *= 0.7;
-                    obstacles.push({...obstacle, y: obstacle.y + 30});
+                    obstacle.radius *= 0.9;
+                    obstacles.push({...obstacle, y: obstacle.y + 40});
                 }
                 break;
             case 'fitness':
