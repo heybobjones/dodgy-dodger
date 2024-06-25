@@ -4,28 +4,27 @@ const gameOverScreen = document.getElementById('gameOver');
 const profilePicUpload = document.getElementById('profilePicUpload');
 const startGameButton = document.getElementById('startGame');
 const flashOverlay = document.getElementById('flashOverlay');
-const controls = document.getElementById('controls');
+
 
 const collisionSound = document.getElementById('collisionSound');
 const gameOverSound = document.getElementById('gameOverSound');
 const backgroundMusic = document.getElementById('backgroundMusic');
 
-const basePlayerRadius = 30;
-const baseObstacleRadius = 50;
+const playerRadius = 30; // Assuming player radius is 30
 const player = {
     x: 50,
     y: 200,
-    radius: basePlayerRadius,
-    speed: 5,  // Adjusted for reasonable speed on touch devices
+    radius: playerRadius, // Player radius
+    speed: 15,
     image: null,
     velocityX: 0,
     velocityY: 0,
-    acceleration: 2,
+    acceleration: 0.75,
     friction: 0.85
 };
 
-let difficultyFactor = 1;
-let obstacleCreationRate = 0.02;
+let difficultyFactor = 1; // Initialize the difficulty factor
+let obstacleCreationRate = 0.04; // Initial obstacle creation rate
 let obstacles = [];
 let score = 0;
 let lives = 10;
@@ -47,13 +46,15 @@ const obstacleImages = {
     crypto: new Image()
 };
 
+// Load obstacle images (replace with actual image URLs)
 const imageUrls = {
     onlyfans: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/OFCreator.png', // Replace with actual image URL for OF creator
-    marketer: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/NetworkMarketer.png', // Replace with actual image URL for Network Marketer
-    fitness: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/FitnessBro.png', // Replace with actual image URL for Fitness Influencer
-    crypto: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/CryptoBro.png' // Replace with actual image URL for Crypto Bro
+marketer: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/NetworkMarketer.png', // Replace with actual image URL for Network Marketer
+fitness: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/FitnessBro.png', // Replace with actual image URL for Fitness Influencer
+crypto: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/CryptoBro.png' // Replace with actual image URL for Crypto Bro
 };
 
+// Load all images and start the game once all images are loaded
 function loadImages(callback) {
     let imagesLoaded = 0;
     const totalImages = Object.keys(obstacleImages).length;
@@ -84,8 +85,8 @@ function drawPlayer() {
     ctx.clip();
 
     if (player.image) {
-        const scaleFactor = player.radius / basePlayerRadius; // Scale the image based on the player's radius
-        ctx.drawImage(player.image, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2);
+        const scaleFactor = 1; // Increase this factor to make the image larger
+        ctx.drawImage(player.image, player.x - player.radius * scaleFactor, player.y - player.radius * scaleFactor, player.radius * 2 * scaleFactor, player.radius * 2 * scaleFactor);
     } else {
         ctx.fillStyle = '#0F0';
         ctx.fill();
@@ -100,8 +101,8 @@ function createObstacle() {
     const obstacle = {
         x: canvas.width,
         y: Math.random() * (canvas.height - 40),
-        radius: baseObstacleRadius,
-        speed: (2 + Math.random() * 3) * difficultyFactor,
+        radius: 50,
+        speed: (2 + Math.random() * 3) * difficultyFactor, // Increase speed by the difficulty factor
         type: type,
         title: getTitle(type)
     };
@@ -154,13 +155,13 @@ function moveObstacles() {
                 obstacle.y += dy / dist * 0.5;
                 break;
             case 'marketer':
-                if (Math.random() < 0.001 && obstacle.radius > 20) {
+                if (Math.random() < 0.001 && obstacle.radius > 20) { // Adjusted to fit larger obstacles
                     obstacle.radius *= 0.7;
                     obstacles.push({...obstacle, y: obstacle.y + 30});
                 }
                 break;
             case 'fitness':
-                obstacle.speed *= 1.001;
+                obstacle.speed *= 1.001; // This line can remain if you want additional speed increase for fitness obstacles
                 break;
         }
     });
@@ -168,6 +169,25 @@ function moveObstacles() {
 }
 
 function movePlayer() {
+    if (keysPressed['ArrowLeft']) {
+        player.velocityX -= player.acceleration;
+    }
+    if (keysPressed['ArrowRight']) {
+        player.velocityX += player.acceleration;
+    }
+    if (keysPressed['ArrowUp']) {
+        player.velocityY -= player.acceleration;
+    }
+    if (keysPressed['ArrowDown']) {
+        player.velocityY += player.acceleration;
+    }
+
+    player.velocityX *= player.friction;
+    player.velocityY *= player.friction;
+
+    player.x += player.velocityX;
+    player.y += player.velocityY;
+
     player.x = Math.max(player.radius, Math.min(canvas.width - player.radius, player.x));
     player.y = Math.max(player.radius, Math.min(canvas.height - player.radius, player.y));
 }
@@ -232,7 +252,7 @@ function update() {
     obstacles.forEach(drawObstacle);
     drawScore();
 
-    if (Math.random() < obstacleCreationRate) {
+    if (Math.random() < obstacleCreationRate) { // Increased obstacle creation rate
         createObstacle();
     }
 
@@ -296,53 +316,6 @@ function playSound(sound) {
         });
     }
 }
-
-// Handle touch events
-let touchStartX = 0;
-let touchStartY = 0;
-
-function handleTouchStart(evt) {
-    const firstTouch = evt.touches[0];
-    touchStartX = firstTouch.clientX;
-    touchStartY = firstTouch.clientY;
-}
-
-function handleTouchMove(evt) {
-    if (!touchStartX || !touchStartY) {
-        return;
-    }
-
-    const touchMoveX = evt.touches[0].clientX;
-    const touchMoveY = evt.touches[0].clientY;
-
-    const diffX = touchStartX - touchMoveX;
-    const diffY = touchStartY - touchMoveY;
-
-    if (Math.abs(diffX) > Math.abs(diffY)) {
-        if (diffX > 0) {
-            // Swipe left
-            player.x -= player.speed;
-        } else {
-            // Swipe right
-            player.x += player.speed;
-        }
-    } else {
-        if (diffY > 0) {
-            // Swipe up
-            player.y -= player.speed;
-        } else {
-            // Swipe down
-            player.y += player.speed;
-        }
-    }
-
-    // Reset values
-    touchStartX = touchMoveX;
-    touchStartY = touchMoveY;
-}
-
-document.addEventListener('touchstart', handleTouchStart, false);
-document.addEventListener('touchmove', handleTouchMove, false);
 
 // Load images and start the game
 loadImages(() => {
