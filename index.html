@@ -15,10 +15,13 @@
 	</div>
 	<canvas id="gameCanvas" width="1600" height="800"></canvas>
 	<div id="controls">
-		<div><h1>Upload your Facebook profile pic and save yourself from the spammers!</h1></div>
-		<center><input type="file" id="profilePicUpload" accept="image/*">
-		<button id="startGame">Start Game</button></div></center>
-	</div>
+        <h1>Upload your Facebook profile pic and save yourself from the spammers!</h1>
+        <p>Use ←↑→↓ to escape cold DMs!</p>
+        <div class="center">
+            <input type="file" id="profilePicUpload" accept="image/*">
+            <button id="startGame">Start Game</button>
+        </div>
+    </div>
 	<audio id="collisionSound" src="https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/collision.mp3"></audio>
 	<audio id="gameOverSound" src="gameover.mp3"></audio>
 	<audio id="backgroundMusic" src="background.mp3" loop></audio>
