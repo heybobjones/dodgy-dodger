@@ -5,7 +5,6 @@ const profilePicUpload = document.getElementById('profilePicUpload');
 const startGameButton = document.getElementById('startGame');
 const flashOverlay = document.getElementById('flashOverlay');
 
-
 const collisionSound = document.getElementById('collisionSound');
 const gameOverSound = document.getElementById('gameOverSound');
 const backgroundMusic = document.getElementById('backgroundMusic');
@@ -24,7 +23,7 @@ const player = {
 };
 
 let difficultyFactor = 1; // Initialize the difficulty factor
-let obstacleCreationRate = 0.04; // Initial obstacle creation rate
+let obstacleCreationRate = 0.02; // Initial obstacle creation rate
 let obstacles = [];
 let score = 0;
 let lives = 10;
@@ -298,7 +297,6 @@ startGameButton.addEventListener('click', () => {
         hitCounts = {onlyfans: 0, marketer: 0, fitness: 0, crypto: 0};
         gameOverScreen.style.display = 'none';
         startGameButton.style.display = 'none';
-        controls.style.display = 'none'; // Hide the controls
         player.x = 50;
         player.y = 200;
         player.velocityX = 0;
