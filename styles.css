@@ -116,3 +116,18 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+    #controls {
+        width: 50%; /* Adjust width for desktop */
+    }
+
+    #controls h1 {
+        font-size: 24px; /* Adjust font size for desktop */
+    }
+
+    #controls p {
+        font-size: 18px; /* Adjust font size for desktop */
+    }
+}
