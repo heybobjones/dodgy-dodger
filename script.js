@@ -40,10 +40,10 @@ const obstacleImages = {
 
 // Load obstacle images (replace with actual image URLs)
 const imageUrls = {
-    onlyfans: '/images/OFCreator.png', // Replace with actual image URL for OF creator
-    marketer: '/images/NetworkMarketer.png', // Replace with actual image URL for Network Marketer
-    fitness: '/images/FitnessBro.png', // Replace with actual image URL for Fitness Influencer
-    crypto: '/images/CryptoBro.png' // Replace with actual image URL for Crypto Bro
+    onlyfans: '/dodgy-dodger/images/OFCreator.png', // Replace with actual image URL for OF creator
+    marketer: '/dodgy-dodger/images/NetworkMarketer.png', // Replace with actual image URL for Network Marketer
+    fitness: '/dodgy-dodger/FitnessBro.png', // Replace with actual image URL for Fitness Influencer
+    crypto: '/dodgy-dodger/CryptoBro.png' // Replace with actual image URL for Crypto Bro
 };
 
 // Load all images and start the game once all images are loaded
