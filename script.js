@@ -22,6 +22,7 @@ let obstacles = [];
 let score = 0;
 let lives = 10;
 let gameLoop;
+let difficultyFactor = 1; // Initialize the difficulty factor
 let gameStarted = false;
 let keysPressed = {};
 let hitCounts = {
@@ -95,7 +96,7 @@ function createObstacle() {
         x: canvas.width,
         y: Math.random() * (canvas.height - 40),
         radius: 50,
-        speed: 2 + Math.random() * 3,
+        speed: (2 + Math.random() * 3) * difficultyFactor, // Increase speed by the difficulty factor
         type: type,
         title: getTitle(type)
     };
