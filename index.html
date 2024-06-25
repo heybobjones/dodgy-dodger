@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Media Dodger</title>
-    <link rel="stylesheet" href="styles.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Social Media Dodger</title>
+	<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="flashOverlay"></div>
-    <div id="gameContainer">
-        <canvas id="gameCanvas" width="1400" height="700"></canvas>
-        <div id="gameOver">
-            <div id="gameOverHeader">Game Over</div>
-            <div id="gameOverSubheader">You got spammed to death! 💀</div></br>
-            <div> 👉 Share your highscore with me on <a href="https://fb.com/bobjones" target="_blank">Facebook</a></div>
-        </div>
-        <div id="controls">
-            <h1>Try to dodge these cold DMs!</h1>
-            <p>Upload your Facebook profile pic and use ←↑→↓ to escape cold DMs!</p>
-            <div class="center">
-                <input type="file" id="profilePicUpload" accept="image/*">
-                <button id="startGame">Start Game</button>
-            </div>
+	<div id="flashOverlay"></div>
+	<div id="gameOver">
+		<div id="gameOverHeader">Game Over</div>
+		<div id="gameOverSubheader">You got spammed to death! 💀</div></br>
+		<div> 👉 Anyway, connect with me on <a href="https://fb.com/bobjones" target="_blank">Facebook</a></div>
+	</div>
+	<canvas id="gameCanvas" width="1400" height="700"></canvas>
+	<div id="controls">
+        <h1>Upload your Facebook profile pic and save yourself from the spammers!</h1>
+        <p>Use ←↑→↓ to escape cold DMs!</p>
+        <div class="center">
+            <input type="file" id="profilePicUpload" accept="image/*">
+            <button id="startGame">Start Game</button>
         </div>
     </div>
-    <audio id="collisionSound" src="https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/collision.mp3"></audio>
-    <audio id="gameOverSound" src="gameover.mp3"></audio>
-    <audio id="backgroundMusic" src="background.mp3" loop></audio>
-    <script src="script.js"></script>
-    <footer>
+	<audio id="collisionSound" src="https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/collision.mp3"></audio>
+	<audio id="gameOverSound" src="gameover.mp3"></audio>
+	<audio id="backgroundMusic" src="background.mp3" loop></audio>
+	<script src="script.js"></script>
+	<footer>
         <p>© 2024 <a href="https://heybobjones.com" target="_blank">Hey Bob Jones</a></p>
     </footer>
 </body>
