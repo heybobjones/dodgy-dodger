@@ -353,7 +353,7 @@ profilePicUpload.addEventListener('change', (e) => {
 startGameButton.addEventListener('click', () => {
     if (!gameStarted) {
         gameStarted = true;
-        lives = 10;
+        lives = 7;
         score = 0;
         obstacles = [];
         hitCounts = {onlyfans: 0, marketer: 0, fitness: 0, crypto: 0};
