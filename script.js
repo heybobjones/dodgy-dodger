@@ -205,7 +205,7 @@ function moveObstacles() {
     obstacles.forEach(obstacle => {
         obstacle.x -= obstacle.speed;
 
-        switch (obstacle.type) {
+        switch(obstacle.type) {
             case 'crypto':
                 obstacle.y += Math.sin(obstacle.x * 0.2) * 4; // Increase amplitude and frequency
                 break;
@@ -217,9 +217,8 @@ function moveObstacles() {
                 obstacle.y += dy / dist * 1.0;
                 break;
             case 'marketer':
-                if (Math.random() < 0.005 && obstacle.radius > 15) { // Increase probability of multiplication
-                    obstacle.radius *= 0.7;
-                    obstacles.push({ ...obstacle, y: obstacle.y + Math.random() * 100 - 50 }); // Wider area
+                if (Math.random() < 0.005) { // Increase probability of multiplication
+                    obstacles.push({...obstacle, y: obstacle.y + Math.random() * 100 - 50}); // Wider area
                 }
                 break;
             case 'fitness':
