@@ -23,7 +23,7 @@ let score = 0;
 let lives = 10;
 let gameLoop;
 let difficultyFactor = 1; // Initialize the difficulty factor
-let obstacleCreationRate = 0.02; // Initial obstacle creation rate
+let obstacleCreationRate = 0.04; // Initial obstacle creation rate
 let gameStarted = false;
 let keysPressed = {};
 let hitCounts = {
