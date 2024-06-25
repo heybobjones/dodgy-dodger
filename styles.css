@@ -1,50 +1,36 @@
 body {
-	background-color: #000;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	margin: 0;
-	font-family: 'Courier New', Courier, monospace;
-	color: #0F0;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    color: #0F0;
+}
+
+#gameContainer {
+    position: relative;
+    width: 100%;
+    max-width: 1600px;
 }
 
 #gameCanvas {
-	border: 4px solid #0F0;
-	width: 100%;  /* Make the canvas take up full width */
-    max-width: 1600px;  /* Limit the maximum width */
-    height: auto;  /* Maintain aspect ratio */
-	margin-top: 40px;
-}
-
-#gameOver {
-	position: absolute;
-	font-size: 24px;
-	text-align: center;
-	display: none;
-	background-color: rgba(0, 0, 0, 0.8);
-	padding: 20px;
-	border-radius: 10px;
-	animation: pulse 2s infinite;
-}
-
-#gameOverHeader {
-	font-size: 48px;
-	margin-bottom: 10px;
-	color: #FF0000;
-	text-shadow: 0 0 10px #FF0000;
-}
-
-#gameOverSubheader {
-	font-size: 24px;
-	color: #FFA500;
-	text-shadow: 0 0 5px #FFA500;
+    border: 4px solid #0F0;
+    width: 100%;
+    height: auto;
 }
 
 #controls {
+    position: absolute;
+    top: 20px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
-    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    padding: 20px;
+    border-radius: 10px;
 }
 
 #controls h1 {
@@ -66,20 +52,44 @@ body {
     gap: 10px;
 }
 
+#gameOver {
+    position: absolute;
+    font-size: 24px;
+    text-align: center;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    animation: pulse 2s infinite;
+}
+
+#gameOverHeader {
+    font-size: 48px;
+    margin-bottom: 10px;
+    color: #FF0000;
+    text-shadow: 0 0 10px #FF0000;
+}
+
+#gameOverSubheader {
+    font-size: 24px;
+    color: #FFA500;
+    text-shadow: 0 0 5px #FFA500;
+}
+
 @keyframes pulse {
-	0% { transform: scale(1); }
-	50% { transform: scale(1.05); }
-	100% { transform: scale(1); }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
 
 #flashOverlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(255, 0, 0, 0.3);
-	display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 0, 0, 0.3);
+    display: none;
 }
 
 footer {
