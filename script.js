@@ -10,12 +10,13 @@ const collisionSound = document.getElementById('collisionSound');
 const gameOverSound = document.getElementById('gameOverSound');
 const backgroundMusic = document.getElementById('backgroundMusic');
 
-const playerRadius = 30; // Assuming player radius is 30
+const basePlayerRadius = 30;
+const baseObstacleRadius = 50;
 const player = {
     x: 50,
     y: 200,
-    radius: playerRadius, // Player radius
-    speed: 15,
+    radius: basePlayerRadius,
+    speed: 5,  // Adjusted for reasonable speed on touch devices
     image: null,
     velocityX: 0,
     velocityY: 0,
@@ -23,8 +24,8 @@ const player = {
     friction: 0.85
 };
 
-let difficultyFactor = 1; // Initialize the difficulty factor
-let obstacleCreationRate = 0.02; // Initial obstacle creation rate
+let difficultyFactor = 1;
+let obstacleCreationRate = 0.02;
 let obstacles = [];
 let score = 0;
 let lives = 10;
@@ -46,7 +47,6 @@ const obstacleImages = {
     crypto: new Image()
 };
 
-// Load obstacle images (replace with actual image URLs)
 const imageUrls = {
     onlyfans: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/OFCreator.png', // Replace with actual image URL for OF creator
     marketer: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/NetworkMarketer.png', // Replace with actual image URL for Network Marketer
@@ -54,7 +54,6 @@ const imageUrls = {
     crypto: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/CryptoBro.png' // Replace with actual image URL for Crypto Bro
 };
 
-// Load all images and start the game once all images are loaded
 function loadImages(callback) {
     let imagesLoaded = 0;
     const totalImages = Object.keys(obstacleImages).length;
@@ -85,8 +84,8 @@ function drawPlayer() {
     ctx.clip();
 
     if (player.image) {
-        const scaleFactor = 1.5; // Increase this factor to make the image larger
-        ctx.drawImage(player.image, player.x - player.radius * scaleFactor, player.y - player.radius * scaleFactor, player.radius * 2 * scaleFactor, player.radius * 2 * scaleFactor);
+        const scaleFactor = player.radius / basePlayerRadius; // Scale the image based on the player's radius
+        ctx.drawImage(player.image, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2);
     } else {
         ctx.fillStyle = '#0F0';
         ctx.fill();
@@ -101,8 +100,8 @@ function createObstacle() {
     const obstacle = {
         x: canvas.width,
         y: Math.random() * (canvas.height - 40),
-        radius: 50,
-        speed: (2 + Math.random() * 3) * difficultyFactor, // Increase speed by the difficulty factor
+        radius: baseObstacleRadius,
+        speed: (2 + Math.random() * 3) * difficultyFactor,
         type: type,
         title: getTitle(type)
     };
@@ -155,13 +154,13 @@ function moveObstacles() {
                 obstacle.y += dy / dist * 0.5;
                 break;
             case 'marketer':
-                if (Math.random() < 0.001 && obstacle.radius > 20) { // Adjusted to fit larger obstacles
+                if (Math.random() < 0.001 && obstacle.radius > 20) {
                     obstacle.radius *= 0.7;
                     obstacles.push({...obstacle, y: obstacle.y + 30});
                 }
                 break;
             case 'fitness':
-                obstacle.speed *= 1.001; // This line can remain if you want additional speed increase for fitness obstacles
+                obstacle.speed *= 1.001;
                 break;
         }
     });
@@ -169,7 +168,6 @@ function moveObstacles() {
 }
 
 function movePlayer() {
-    // Ensure the player stays within the canvas bounds
     player.x = Math.max(player.radius, Math.min(canvas.width - player.radius, player.x));
     player.y = Math.max(player.radius, Math.min(canvas.height - player.radius, player.y));
 }
@@ -234,7 +232,7 @@ function update() {
     obstacles.forEach(drawObstacle);
     drawScore();
 
-    if (Math.random() < obstacleCreationRate) { // Increased obstacle creation rate
+    if (Math.random() < obstacleCreationRate) {
         createObstacle();
     }
 
@@ -350,4 +348,3 @@ document.addEventListener('touchmove', handleTouchMove, false);
 loadImages(() => {
     startGameButton.style.display = 'block';
 });
-
