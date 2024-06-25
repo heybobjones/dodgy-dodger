@@ -5,7 +5,6 @@ const profilePicUpload = document.getElementById('profilePicUpload');
 const startGameButton = document.getElementById('startGame');
 const flashOverlay = document.getElementById('flashOverlay');
 
-
 const collisionSound = document.getElementById('collisionSound');
 const gameOverSound = document.getElementById('gameOverSound');
 const backgroundMusic = document.getElementById('backgroundMusic');
