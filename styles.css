@@ -54,12 +54,16 @@ body {
 
 #gameOver {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 24px;
     text-align: center;
     display: none;
     background-color: rgba(0, 0, 0, 0.8);
     padding: 20px;
     border-radius: 10px;
+    z-index: 10; /* Ensure game over screen is on top */
     animation: pulse 2s infinite;
 }
 
