@@ -4,12 +4,16 @@ const gameOverScreen = document.getElementById('gameOver');
 const profilePicUpload = document.getElementById('profilePicUpload');
 const startGameButton = document.getElementById('startGame');
 const flashOverlay = document.getElementById('flashOverlay');
-const collisionSound = document.getElementById('collisionSound');
 
+const collisionSound = document.getElementById('collisionSound');
+const gameOverSound = document.getElementById('gameOverSound');
+const backgroundMusic = document.getElementById('backgroundMusic');
+
+const playerRadius = 30; // Assuming player radius is 30
 const player = {
     x: 50,
     y: 200,
-    radius: 20,
+    radius: playerRadius, // Player radius
     speed: 15,
     image: null,
     velocityX: 0,
@@ -18,12 +22,12 @@ const player = {
     friction: 0.85
 };
 
+let difficultyFactor = 1; // Initialize the difficulty factor
+let obstacleCreationRate = 0.02; // Initial obstacle creation rate
 let obstacles = [];
 let score = 0;
 let lives = 10;
 let gameLoop;
-let difficultyFactor = 1; // Initialize the difficulty factor
-let obstacleCreationRate = 0.02; // Initial obstacle creation rate
 let gameStarted = false;
 let keysPressed = {};
 let hitCounts = {
@@ -44,9 +48,9 @@ const obstacleImages = {
 // Load obstacle images (replace with actual image URLs)
 const imageUrls = {
     onlyfans: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/OFCreator.png', // Replace with actual image URL for OF creator
-    marketer: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/NetworkMarketer.png', // Replace with actual image URL for Network Marketer
-    fitness: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/FitnessBro.png', // Replace with actual image URL for Fitness Influencer
-    crypto: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/CryptoBro.png' // Replace with actual image URL for Crypto Bro
+marketer: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/NetworkMarketer.png', // Replace with actual image URL for Network Marketer
+fitness: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/FitnessBro.png', // Replace with actual image URL for Fitness Influencer
+crypto: 'https://raw.githubusercontent.com/heybobjones/dodgy-dodger/main/images/CryptoBro.png' // Replace with actual image URL for Crypto Bro
 };
 
 // Load all images and start the game once all images are loaded
@@ -73,22 +77,22 @@ function loadImages(callback) {
 }
 
 function drawPlayer() {
-	ctx.save();
-	ctx.beginPath();
-	ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
-	ctx.closePath();
-	ctx.clip();
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
+    ctx.closePath();
+    ctx.clip();
 
-	if (player.image) {
-		ctx.drawImage(player.image, player.x - player.radius, player.y - player.radius, player.radius * 2, player.radius * 2);
-	} else {
-		ctx.fillStyle = '#0F0';
-		ctx.fill();
-	}
+    if (player.image) {
+        const scaleFactor = 1.5; // Increase this factor to make the image larger
+        ctx.drawImage(player.image, player.x - player.radius * scaleFactor, player.y - player.radius * scaleFactor, player.radius * 2 * scaleFactor, player.radius * 2 * scaleFactor);
+    } else {
+        ctx.fillStyle = '#0F0';
+        ctx.fill();
+    }
 
-	ctx.restore();
+    ctx.restore();
 }
-
 
 function createObstacle() {
     const types = ['onlyfans', 'marketer', 'fitness', 'crypto'];
@@ -104,81 +108,14 @@ function createObstacle() {
     obstacles.push(obstacle);
 }
 
-
 function getTitle(type) {
     switch(type) {
-        case 'onlyfans': return 'Only Fans Creator Carla';
-        case 'marketer': return 'Network Marketer Natalie';
-        case 'fitness': return 'Fitness Bro Benny';
-        case 'crypto': return 'Crypto Bro Brian';
+        case 'onlyfans': return 'Only Fans Creator';
+        case 'marketer': return 'Network Marketer';
+        case 'fitness': return 'Fitness Bro';
+        case 'crypto': return 'Crypto Bro';
     }
 }
-
-function updateDifficulty() {
-    difficultyFactor += 0.001; // Adjust this value to control how quickly the difficulty increases
-}
-
-// Call updateDifficulty periodically
-function update() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    if (!isColliding) {
-        movePlayer();
-        moveObstacles();
-        checkCollision();
-    }
-
-    drawPlayer();
-    obstacles.forEach(drawObstacle);
-    drawScore();
-
-    if (Math.random() < 0.02) {
-        createObstacle();
-    }
-
-    score++;
-
-    if (lives <= 0) {
-        gameOver();
-    } else {
-        gameLoop = requestAnimationFrame(update);
-        updateDifficulty(); // Increase difficulty over time
-    }
-}
-
-function updateDifficulty() {
-    difficultyFactor += 0.001; // Adjust this value to control how quickly the difficulty increases
-    obstacleCreationRate += 0.0001; // Adjust this value to control how quickly the obstacle creation rate increases
-}
-
-// Call updateDifficulty periodically
-function update() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    if (!isColliding) {
-        movePlayer();
-        moveObstacles();
-        checkCollision();
-    }
-
-    drawPlayer();
-    obstacles.forEach(drawObstacle);
-    drawScore();
-
-    if (Math.random() < obstacleCreationRate) { // Increased obstacle creation rate
-        createObstacle();
-    }
-
-    score++;
-
-    if (lives <= 0) {
-        gameOver();
-    } else {
-        gameLoop = requestAnimationFrame(update);
-        updateDifficulty(); // Increase difficulty over time
-    }
-}
-
 
 function drawObstacle(obstacle) {
     const img = obstacleImages[obstacle.type];
@@ -212,18 +149,18 @@ function moveObstacles() {
             case 'onlyfans':
                 const dx = player.x - obstacle.x;
                 const dy = player.y - obstacle.y;
-                const dist = Math.sqrt(dx*dx + dy*dy);
+                const dist = Math.sqrt(dx * dx + dy * dy);
                 obstacle.x += dx / dist * 0.5;
                 obstacle.y += dy / dist * 0.5;
                 break;
             case 'marketer':
-                if (Math.random() < 0.001 && obstacle.radius > 15) {
+                if (Math.random() < 0.001 && obstacle.radius > 20) { // Adjusted to fit larger obstacles
                     obstacle.radius *= 0.7;
                     obstacles.push({...obstacle, y: obstacle.y + 30});
                 }
                 break;
             case 'fitness':
-                obstacle.speed *= 1.001;
+                obstacle.speed *= 1.001; // This line can remain if you want additional speed increase for fitness obstacles
                 break;
         }
     });
@@ -314,7 +251,7 @@ function update() {
     obstacles.forEach(drawObstacle);
     drawScore();
 
-    if (Math.random() < 0.02) {
+    if (Math.random() < obstacleCreationRate) { // Increased obstacle creation rate
         createObstacle();
     }
 
@@ -324,6 +261,7 @@ function update() {
         gameOver();
     } else {
         gameLoop = requestAnimationFrame(update);
+        updateDifficulty(); // Increase difficulty over time
     }
 }
 
@@ -369,8 +307,12 @@ startGameButton.addEventListener('click', () => {
 });
 
 function playSound(sound) {
-    sound.currentTime = 0;
-    sound.play();
+    if (sound) {
+        sound.currentTime = 0;
+        sound.play().catch(error => {
+            console.error("Sound playback error:", error);
+        });
+    }
 }
 
 // Load images and start the game
