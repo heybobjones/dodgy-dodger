@@ -8,7 +8,7 @@ const flashOverlay = document.getElementById('flashOverlay');
 const player = {
     x: 50,
     y: 200,
-    radius: 30, // Increased radius for the player
+    radius: 20,
     speed: 15,
     image: null,
     velocityX: 0,
@@ -91,8 +91,8 @@ function createObstacle() {
     const type = types[Math.floor(Math.random() * types.length)];
     const obstacle = {
         x: canvas.width,
-        y: Math.random() * (canvas.height - 60), // Adjusted to fit larger obstacles
-        radius: 35, // Increased radius for obstacles
+        y: Math.random() * (canvas.height - 40),
+        radius: 25,
         speed: 2 + Math.random() * 3,
         type: type,
         title: getTitle(type)
@@ -146,7 +146,7 @@ function moveObstacles() {
                 obstacle.y += dy / dist * 0.5;
                 break;
             case 'marketer':
-                if (Math.random() < 0.001 && obstacle.radius > 20) { // Adjusted to fit larger obstacles
+                if (Math.random() < 0.001 && obstacle.radius > 15) {
                     obstacle.radius *= 0.7;
                     obstacles.push({...obstacle, y: obstacle.y + 30});
                 }
